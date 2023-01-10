@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InertiaTest;
 use Illuminate\Http\Request;
 
 use Inertia\Inertia;
@@ -12,6 +13,10 @@ class InertiaTestController extends Controller
         return Inertia::render('Inertia/Index');
     }
 
+    public function create(){
+        return Inertia::render('Inertia/Create');
+    }
+
     public function show($id){
         // dd:デバック関数
         // dd($id);
@@ -19,5 +24,13 @@ class InertiaTestController extends Controller
         [
             'id' => $id
         ]);
+    }
+
+    public function store(Request $request){
+        $inertiaTest = new InertiaTest;
+        $inertiaTest->title = $request->title;
+        $inertiaTest->content = $request->content;
+        $inertiaTest->save();
+
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('inersia_tests', function (Blueprint $table) {
+        Schema::create('inertia_tests', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('content');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inersia_tests');
+        Schema::dropIfExists('inertia_tests');
     }
 };
