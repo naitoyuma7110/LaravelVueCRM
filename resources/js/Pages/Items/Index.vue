@@ -3,9 +3,11 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import FlashMessage from '@/Components/FlashMessage.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
-defineProps({
+
+const props = defineProps({
   items: Array
 })
+
 
 </script>
 
@@ -41,7 +43,7 @@ defineProps({
                           </thead>
                           <tbody>
                             <tr v-for="item in items" :key="item.id">
-                              <Link as="td" :href="route('items.show', {item: item.id})" class="px-4 py-3">{{ item.id }}</Link>
+                              <Link as="button" :href="route('items.show', {item: item.id})" class="px-4 p-3 border-0 focus:outline-none rounded">{{ item.id }}</Link>
                               <td class="px-4 py-3">{{ item.name }}</td>
                               <td class="px-4 py-3">{{ item.price }}</td>
                               <td class="px-4 py-3">{{ item.is_selling === 1 ? '販売中' : '停止中' }}</td>

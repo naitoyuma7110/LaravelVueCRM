@@ -12,14 +12,14 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+           * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $items = Item::select('id', 'name', 'price', 'is_selling')->get();
 
 
-        return Inertia::render('Items/Index',[
+        return Inertia::render('Items/Index', [
             'items' => $items
         ]);
     }
@@ -49,10 +49,10 @@ class ItemController extends Controller
         ]);
 
         return to_route('items.index')
-        ->with([
-            'message' => '登録しました。',
-            'status' => 'success'
-        ]);;
+            ->with([
+                'message' => '登録しました。',
+                'status' => 'success'
+            ]);;
     }
 
     /**
@@ -63,7 +63,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return Inertia::render('Items/Show',[
+        return Inertia::render('Items/Show', [
             'item' => $item
         ]);
     }
@@ -79,7 +79,7 @@ class ItemController extends Controller
 
         // ルートパラメータ(item : id)に対応したItemモデルを自動で引数として受け取り使用する
 
-        return Inertia::render('Items/Edit',[
+        return Inertia::render('Items/Edit', [
             'item' => $item
         ]);
     }
@@ -101,11 +101,10 @@ class ItemController extends Controller
         $item->save();
 
         return to_route('items.index')
-        ->with([
-            'message' => '更新しました',
-            'status' => 'success'
-        ]);
-
+            ->with([
+                'message' => '更新しました',
+                'status' => 'success'
+            ]);
     }
 
     /**
@@ -122,9 +121,9 @@ class ItemController extends Controller
         // ソフトデリートについてはまた今度
 
         return to_route('items.index')
-        ->with([
-            'message' => '削除しました',
-            'status' => 'danger'
-        ]);
+            ->with([
+                'message' => '削除しました',
+                'status' => 'danger'
+            ]);
     }
 }

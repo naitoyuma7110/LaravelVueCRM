@@ -1,0 +1,13 @@
+{
+    "singleQuote": true,
+    "semi": true,
+    "vueIndentScriptAndStyle": true,
+    "tabWidth": 2,
+    "bracketLine":true,
+    "extends": [
+        "plugin:vue/vue3-recommended",
+        "eslint:recommended",
+        "@vue/typescript/recommended",
+        "@vue/eslint-config-prettier"
+    ]
+}
