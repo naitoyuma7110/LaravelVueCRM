@@ -22,4 +22,8 @@ export default defineConfig({
             host: "localhost",
         },
     },
+  //   axios: {
+  //   baseURL: 'localhost',
+  //   credentials: true
+  // },
 });

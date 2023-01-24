@@ -1,5 +1,7 @@
 import "./bootstrap";
 import "../css/app.css";
+import "../css/micromodal.css"
+import "../js/micromodal"
 
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/inertia-vue3";
@@ -25,4 +27,8 @@ createInertiaApp({
     },
 });
 
+
+
+
 InertiaProgress.init({ color: "#4B5563" });
+

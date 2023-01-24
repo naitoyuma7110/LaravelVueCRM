@@ -23,8 +23,9 @@ class CustomerController extends Controller
     // dd($getTest, $paginateTest);
 
     // クエリスコープの呼び出しはメソッド名、引数が変わる
-    // where句が一致しない場合に全件を取得するのは仕様？
-    $customers = Customer::searchCustomers($request->search)->select('id', 'name', 'kana', 'tel')->paginate(50);
+    // where句が一致するカラムがない場合に全件を取得するのは仕様？
+    $customers = Customer::searchCustomers($request->search)
+      ->select('id', 'name', 'kana', 'tel')->paginate(50);
 
 
     return Inertia::render('Customers/Index', [

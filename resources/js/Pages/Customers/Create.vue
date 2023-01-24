@@ -43,13 +43,13 @@ const storeCustomers = () => {
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">顧客登録</h2>
     </template>
 
-    <section class="text-gray-600 body-font relative">
+    <section class="text-gray-600 body-font ">
       <form @submit.prevent="storeItem">
         <div class="container px-5 py-8 mx-auto">
           <div class="lg:w-1/2 md:w-2/3 mx-auto">
             <div class="flex flex-wrap -m-2">
               <div class="p-2 w-full">
-                <div class="relative">
+                <div class="">
                   <label for="name" class="leading-7 text-sm text-gray-600">顧客名</label>
                   <input v-model="form.name" type="text" id="name" name="name"
                     class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
@@ -57,7 +57,7 @@ const storeCustomers = () => {
               </div>
               <InputError class="mt-2" :message="errors.name" />
               <div class="p-2 w-full">
-                <div class="relative">
+                <div class="">
                   <label for="name" class="leading-7 text-sm text-gray-600">フリカナ</label>
                   <input v-model="form.kana" type="text" id="kana" name="kana"
                     class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
@@ -65,7 +65,7 @@ const storeCustomers = () => {
               </div>
               <InputError class="mt-2" :message="errors.kana" />
               <div class="p-2 w-full">
-                <div class="relative">
+                <div class="">
                   <label for="tel" class="leading-7 text-sm text-gray-600">電話番号</label>
                   <input v-model="form.tel" type="number" id="tel" name="tel"
                     class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
@@ -73,7 +73,7 @@ const storeCustomers = () => {
               </div>
               <InputError class="mt-2" :message="errors.tel" />
               <div class="p-2 w-full">
-                <div class="relative">
+                <div class="">
                   <label for="email" class="leading-7 text-sm text-gray-600">メールアドレス</label>
                   <input v-model="form.email" type="email" id="email" name="email"
                     class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
@@ -81,7 +81,7 @@ const storeCustomers = () => {
               </div>
               <InputError class="mt-2" :message="errors.email" />
               <div class="p-2 w-full">
-                <div class="relative">
+                <div class="">
                   <label for="postcode" class="leading-7 text-sm text-gray-600">郵便番号</label>
                   <div>
                     <input v-model="form.postcode" type="text" id="postcode" name="postcode"
@@ -95,7 +95,7 @@ const storeCustomers = () => {
               <InputError class="mt-2" :message="postCodeErrorMessage" />
               <InputError class="mt-2" :message="errors.postcode" />
               <div class="p-2 w-full">
-                <div class="relative">
+                <div class="">
                   <label for="address" class="leading-7 text-sm text-gray-600">住所</label>
                   <input v-model="form.address" type="text" id="address" name="address"
                     class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
@@ -103,7 +103,7 @@ const storeCustomers = () => {
               </div>
               <InputError class="mt-2" :message="errors.address" />
               <div class="p-2 w-full">
-                <div class="relative">
+                <div class="">
                   <label for="birthday" class="leading-7 text-sm text-gray-600">誕生日</label>
                   <input v-model="form.birthday" type="date" id="birthday" name="birthday"
                     class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
@@ -135,7 +135,7 @@ const storeCustomers = () => {
               </div>
               <InputError class="mt-2" :message="errors.gender" />
               <div class="p-2 w-full">
-                <div class="relative">
+                <div class="">
                   <label for="text" class="leading-7 text-sm text-gray-600">メモ</label>
                   <textarea v-model="form.memo" type="text" id="memo" name="memo"
                     class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
