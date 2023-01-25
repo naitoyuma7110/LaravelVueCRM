@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import InputError from '@/Components/InputError.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { getToday } from "@/common"
 import { Inertia } from "@inertiajs/inertia";
@@ -73,8 +74,6 @@ const totalPrice = computed(() => {
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">商品購入</h2>
     </template>
-
-
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -88,15 +87,15 @@ const totalPrice = computed(() => {
                       <label for="name" class="leading-7 text-sm text-gray-600">会員名</label>
                       <Micromodal @update:customerId="setCustomerId"></Micromodal>
                     </div>
+                    <InputError class="mt-2" :message="errors.customer_id" />
                   </div>
-                  <!-- <InputError class="mt-2" :message="errors.customer" /> -->
                   <div class="p-2 w-full">
                     <div>
                       <label for="date" class="leading-7 text-sm text-gray-600">日付</label>
                       <input type="date" id="date" v-model="form.date" class="w-full rounded">
                     </div>
+                    <InputError class="mt-2" :message="errors.date" />
                   </div>
-                  <!-- <InputError class="mt-2" :message="errors.memo" /> -->
                   <div class="w-full p-2">
                     <table class="w-full text-center text-gray-600 dark:text-gray-400">
                       <thead>
@@ -122,16 +121,15 @@ const totalPrice = computed(() => {
                         </tr>
                       </tbody>
                     </table>
+                    <InputError class="mt-2" :message="props.errors.items" />
+                    <div class="w-full text-lg text-right my-2 py-2 pr-24 border rounded border-gray-300">
+                      合計金額：{{ totalPrice }}
+                    </div>
                   </div>
-                  <div class="w-full text-lg text-right py-2 pr-16 border rounded ma-5 border-gray-300">
-                    合計金額：{{ totalPrice }}
-                  </div>
-
-                  <!-- <InputError class="mt-2" :message="errors.price" /> -->
-                  <div class="p-2 w-full">
-                    <button
-                      class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">登録</button>
-                  </div>
+                </div>
+                <div class="p-2 w-full">
+                  <button
+                    class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">登録</button>
                 </div>
               </div>
             </form>

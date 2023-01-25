@@ -24,5 +24,5 @@ Route::middleware('auth:sanctum')
   ->get('/searchCustomers', function (Request $request) {
     return
       Customer::searchCustomers($request->search)
-      ->select('id', 'name', 'kana', 'tel')->paginate(50);
+      ->select('id', 'name', 'kana', 'tel')->paginate(30);
   });

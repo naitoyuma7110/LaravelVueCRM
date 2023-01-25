@@ -60,10 +60,12 @@ onMounted(() => {
                   </thead>
                   <tbody>
                     <tr v-for="customer in customers.data" :key="customer.id">
+                      <td class="px-4 py-3">{{ customer.id }}
+                      </td>
                       <Link as="button" :href="route('customers.show', { customer: customer.id })"
-                        class="px-4 p-3 border-0 focus:outline-none rounded">{{ customer.id }}
+                        class="px-4 p-3 border-0 focus:outline-none rounded text-sky-600 cursor-pointer underline decoration-sky-500">
+                      {{ customer.name }}
                       </Link>
-                      <td class="px-4 py-3">{{ customer.name }}</td>
                       <td class="px-4 py-3">{{ customer.kana }}</td>
                       <td class="px-4 py-3">{{ customer.tel }}</td>
                     </tr>

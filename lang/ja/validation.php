@@ -166,6 +166,8 @@ return [
     'address' => "住所",
     'birthday' => "誕生日",
     'gender' => "性別",
+    'customer_id' => "会員",
+    'items' => "商品"
   ],
 
 ];

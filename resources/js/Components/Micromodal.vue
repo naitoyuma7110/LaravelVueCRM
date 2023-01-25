@@ -1,7 +1,9 @@
 <script setup>
 import axios from "axios"
-import { ref, reactive, defineEmits } from "vue"
+import { ref, reactive, onMounted } from "vue"
 import { Link, Inertia } from "@inertiajs/inertia-vue3";
+import PagenationAjax from "./PagenationAjax.vue";
+
 
 const search = ref()
 const customers = reactive({
@@ -17,10 +19,28 @@ const searchCustomers = async () => {
         }
       })
       .then((res) => {
-        console.log(res.data.data)
+        console.log(res.data.links)
         customers.value = res.data
       })
     toggleStatus();
+  } catch (e) {
+    console.log(e.message)
+  }
+}
+
+const pagenation = async (url) => {
+  try {
+    await axios
+      .get(url)
+      .then((res) => {
+        console.log(res.data)
+        customers.value = res.data
+      })
+    const element = document.querySelector('.modal__header'); // 移動させたい要素を指定
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
   } catch (e) {
     console.log(e.message)
   }
@@ -38,12 +58,14 @@ const isShow = ref(false);
 const toggleStatus = () => {
   isShow.value = !isShow.value
 }
+
 </script>
 <template>
   <transition name="fade">
     <div v-if="isShow" class="modal micromodal-slide" :class="isShow ? 'is-open' : ''">
       <div class="modal__overlay" tabindex="-1">
         <div class="modal__container">
+          <!-- <div class="modal__container" ref="modal__scroll__controll"> -->
           <header class="modal__header">
             <h2 class="modal__title">
               顧客検索
@@ -51,7 +73,7 @@ const toggleStatus = () => {
             <button @click="toggleStatus" type="button" class="modal__close"></button>
           </header>
           <main class="modal__content">
-            <div class="w-full mx-auto overflow-auto">
+            <div class="w-full mx-auto overflow-auto mb-4">
               <table class="table-auto w-full text-left whitespace-no-wrap">
                 <thead>
                   <tr>
@@ -85,6 +107,7 @@ const toggleStatus = () => {
                 </tbody>
               </table>
             </div>
+            <PagenationAjax :links="customers.value.links" @pagenation:customers="pagenation"></PagenationAjax>
           </main>
           <footer class="modal__footer">
             <button @click="toggleStatus" type="button" class="modal__btn">閉じる</button>
@@ -96,8 +119,8 @@ const toggleStatus = () => {
   <div>
     <input type="text" name="search" v-model="search" class="py-2 mr-1 rounded">
     <button type='button'
-      class=" py-2 px-6 text-white bg-blue-400 border-0 rounded focus:outline-none hover:bg-blue-500" @click="
-      searchCustomers();">検索</button>
+      class=" py-2 px-6 text-white bg-blue-400 border-0 rounded focus:outline-none hover:bg-blue-500"
+      @click="searchCustomers">検索</button>
   </div>
 </template>
 <style>
