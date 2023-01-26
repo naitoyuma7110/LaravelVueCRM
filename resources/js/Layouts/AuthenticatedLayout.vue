@@ -46,6 +46,11 @@ const showingNavigationDropdown = ref(false);
                   購入画面
                 </NavLink>
               </div>
+              <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <NavLink :href="route('purchases.index')" :active="route().current('purchases.index')">
+                  購買履歴
+                </NavLink>
+              </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -109,8 +114,8 @@ const showingNavigationDropdown = ref(false);
             <ResponsiveNavLink :href="route('customers.index')" :active="route().current('customers.index')">
               顧客管理
             </ResponsiveNavLink>
-            <ResponsiveNavLink :href="route('purchases.create')" :active="route().current('purchases.create')">
-              顧客管理
+            <ResponsiveNavLink :href="route('purchases.index')" :active="route().current('purchases.create')">
+              購買履歴
             </ResponsiveNavLink>
           </div>
 

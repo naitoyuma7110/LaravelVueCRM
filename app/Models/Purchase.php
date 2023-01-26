@@ -17,7 +17,7 @@ class Purchase extends Model
     'status'
   ];
 
-  // Get relation Customer(one) : Purchese->customer()
+  // Get relation Customer(one) : Purchese->customer
   // リレーション(Customer:Purchase [one to many] )
   public function customer()
   {

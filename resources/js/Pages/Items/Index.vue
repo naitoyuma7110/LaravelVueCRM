@@ -35,7 +35,7 @@ const props = defineProps({
                 新規追加</Link>
               </div>
               <div class="lg:w-2/3 w-full mx-auto overflow-auto">
-                <table class="table-auto w-full text-left whitespace-no-wrap">
+                <table class="table-auto w-full text-center whitespace-no-wrap">
                   <thead>
                     <tr>
                       <th
@@ -51,9 +51,14 @@ const props = defineProps({
                   </thead>
                   <tbody>
                     <tr v-for="item in items" :key="item.id">
-                      <Link as="button" :href="route('items.show', { item: item.id })"
-                        class="px-4 p-3 border-0 focus:outline-none rounded">{{ item.id }}</Link>
-                      <td class="px-4 py-3">{{ item.name }}</td>
+                      <td class="px-4 py-3">
+                        {{ item.id }}
+                      </td>
+                      <td class="px-4 py-3">
+                        <Link as="button" :href="route('items.show', { item: item.id })"
+                          class="p-2 text-sky-600 cursor-pointer underline decoration-sky-500 border-0 focus:outline-none rounded">
+                        {{ item.name }}</Link>
+                      </td>
                       <td class="px-4 py-3">{{ item.price }}</td>
                       <td class="px-4 py-3">{{ item.is_selling === 1 ? '販売中' : '停止中' }}</td>
                     </tr>
