@@ -28,7 +28,6 @@ class PurchaseController extends Controller
       ->selectRaw('id, sum(subtotal) as total, status, created_at')
       ->paginate(50);
 
-
     return Inertia::render('Purchases/Index', [
       'orders' => $orders
     ]);
@@ -156,7 +155,37 @@ class PurchaseController extends Controller
    */
   public function update(UpdatePurchaseRequest $request, Purchase $purchase)
   {
-    dd($purchase, $request);
+    // dd($request);
+    DB::beginTransaction();
+
+    try {
+
+      // purchaseのstatusを更新
+      $purchase->update([
+        'status' => $request->status,
+      ]);
+
+      // item_purchase中間テーブルの数量を更新
+      // syncは引数の内容で削除と更新を同時に行う
+      $itemRecords = [];
+      foreach ($request->items as $requestItem) {
+        // ↓これだとダメ([]でラップして追加されるため)
+        // array_push($itemRecords, [
+        //   $requestItem['id'] => [
+        //     'quantity' => $requestItem['quantity']
+        //   ]
+        // ]);
+        $itemRecords = $itemRecords + [$requestItem['id'] => [
+          'quantity' => $requestItem['quantity']
+        ]];
+      }
+      $purchase->items()->sync($itemRecords);
+      DB::commit();
+
+      return to_route('dashboard');
+    } catch (e) {
+      DB::rollBack();
+    }
   }
 
   /**

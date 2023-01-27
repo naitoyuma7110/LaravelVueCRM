@@ -32,7 +32,7 @@ const quantity = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 const totalPrice = computed(() => {
   let total = 0;
-  props.items.forEach(item => {
+  itemList.value.forEach(item => {
     total += item.price * item.quantity
   })
   return total
@@ -48,8 +48,6 @@ const form = reactive({
 
 // 配列はref
 const itemList = ref([])
-
-
 onMounted(() => {
   props.items.forEach(item => {
     itemList.value.push({
@@ -62,11 +60,11 @@ onMounted(() => {
 
 <template>
 
-  <Head title="商品登録" />
+  <Head title="購入履歴編集" />
 
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">商品購入</h2>
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">購入履歴編集</h2>
     </template>
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

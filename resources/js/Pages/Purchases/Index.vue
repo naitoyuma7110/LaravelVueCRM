@@ -30,6 +30,7 @@ onMounted(() => {
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <section class="text-gray-600 body-font">
+            <FlashMessage></FlashMessage>
             <div class="container px-5 py-8 mx-auto">
               <div class="flex flex-col text-center w-full mb-10">
                 <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">購入履歴</h1>
