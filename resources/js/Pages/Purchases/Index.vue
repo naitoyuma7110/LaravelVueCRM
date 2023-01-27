@@ -61,7 +61,7 @@ onMounted(() => {
                           class="p-2 text-sky-600 cursor-pointer underline decoration-sky-500">
                         {{ order.id }}</Link>
                       </td>
-                      <td class="px-4 py-3 border-b-2">{{ order.total }}</td>
+                      <td class="px-4 py-3 border-b-2">{{ order.total ? order.total : "購入商品なし" }}</td>
                       <td class="px-4 py-3 border-b-2">{{ order.status }}</td>
                       <td class="px-4 py-3 border-b-2">{{ dayjs(order.created_at).format('YYYY-MM-DD HH:mm:ss') }}</td>
                     </tr>

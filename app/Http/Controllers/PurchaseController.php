@@ -175,9 +175,11 @@ class PurchaseController extends Controller
         //     'quantity' => $requestItem['quantity']
         //   ]
         // ]);
-        $itemRecords = $itemRecords + [$requestItem['id'] => [
-          'quantity' => $requestItem['quantity']
-        ]];
+        if ($requestItem['quantity'] !== 0) {
+          $itemRecords = $itemRecords + [$requestItem['id'] => [
+            'quantity' => $requestItem['quantity']
+          ]];
+        }
       }
       $purchase->items()->sync($itemRecords);
       DB::commit();
