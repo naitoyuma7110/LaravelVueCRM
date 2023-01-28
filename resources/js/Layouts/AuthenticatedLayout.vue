@@ -26,11 +26,11 @@ const showingNavigationDropdown = ref(false);
               </div>
 
               <!-- Navigation Links -->
-              <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+              <!-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                   ダッシュボード
                 </NavLink>
-              </div>
+              </div> -->
               <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <NavLink :href="route('items.index')" :active="route().current('items.index')">
                   商品管理
@@ -49,6 +49,11 @@ const showingNavigationDropdown = ref(false);
               <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <NavLink :href="route('purchases.index')" :active="route().current('purchases.index')">
                   購買履歴
+                </NavLink>
+              </div>
+              <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <NavLink :href="route('analysis.index')" :active="route().current('analysis.index')">
+                  データ分析
                 </NavLink>
               </div>
             </div>
@@ -105,9 +110,9 @@ const showingNavigationDropdown = ref(false);
         <!-- Responsive Navigation Menu -->
         <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
           <div class="pt-2 pb-3 space-y-1">
-            <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+            <!-- <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
               Dashboard
-            </ResponsiveNavLink>
+            </ResponsiveNavLink> -->
             <ResponsiveNavLink :href="route('items.index')" :active="route().current('items.index')">
               商品管理
             </ResponsiveNavLink>
@@ -116,6 +121,9 @@ const showingNavigationDropdown = ref(false);
             </ResponsiveNavLink>
             <ResponsiveNavLink :href="route('purchases.index')" :active="route().current('purchases.create')">
               購買履歴
+            </ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('analysis.index')" :active="route().current('analysis.index')">
+              データ分析
             </ResponsiveNavLink>
           </div>
 
