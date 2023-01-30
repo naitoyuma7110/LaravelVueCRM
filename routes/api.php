@@ -29,6 +29,3 @@ Route::middleware('auth:sanctum')
   });
 
 Route::middleware('auth:sanctum')->get('/analysis', [AnalysisController::class, 'index'])->name('api.analysis');
-// Route::middleware('auth:sanctum')->get('/analysis', function (Request $request) {
-//   return "HELLO";
-// })->name('api.analysis');

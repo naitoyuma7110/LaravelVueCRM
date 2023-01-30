@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class AnalysisController extends Controller
 {
@@ -15,26 +16,29 @@ class AnalysisController extends Controller
     $startDate = $request->startDate;
     $endDate = $request->endDate;
 
-    $period = Order::betweenDate($startDate, $endDate)
-      ->groupBy('id')
-      ->selectRaw('
-        id,
-        sum(subtotal) as total,
-        customer_name,
-        status,
-        created_at
-        ')
-      ->orderBy('created_at')
-      ->paginate(50);
+    // start-end間のPurchaseレコード
+    $subQuery = Order::betweenDate($startDate, $endDate);
 
-    // return response()->json([
-    //   'data' => [
-    //     'startDate' => $startDate,
-    //     'endDate' => $endDate
-    //   ]
-    // ], Response::HTTP_OK);
+    // 注文毎の合計金額レコード
+    if ($request->type === 'perDay') {
+      $subQuery->where('status', true)
+        ->groupBy('id')
+        ->selectRaw('
+          id,
+          sum(subtotal) as totalPerPurchase,
+          DATE_FORMAT(created_at, "%Y%m%d") as date
+          ');
+    }
+
+    // DB:modelの基幹クラス queryビルダの各メソッドを使用可能となる
+    // 日毎の合計売上金額レコード
+    $data = DB::table($subQuery)
+      ->groupBy('date')
+      ->selectRaw('date, sum(totalPerPurchase) as total')
+      ->get();
+
     return response()->json([
-      'data' => $period
+      'data' => $data
     ], Response::HTTP_OK);
   }
 }
