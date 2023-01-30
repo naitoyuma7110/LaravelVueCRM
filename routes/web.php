@@ -11,6 +11,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AnalysisController;
 
+use App\Models\Order;
+
 Route::resource('items', ItemController::class)
   ->middleware(['auth', 'verified']);
 
@@ -21,6 +23,8 @@ Route::resource('purchases', PurchaseController::class)
   ->middleware(['auth', 'verified']);
 
 Route::get('anlysis', [AnalysisController::class, 'index'])->name('analysis.index');
+
+// Route::get('anlysis', [AnalysisController::class, 'show'])->name('analysis.show');
 
 
 Route::get('/', function () {
