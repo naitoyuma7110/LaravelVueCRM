@@ -35,6 +35,7 @@ class AnalysisController extends Controller
     $data = DB::table($subQuery)
       ->groupBy('date')
       ->selectRaw('date, sum(totalPerPurchase) as total')
+      ->orderBy('date')
       ->get();
 
     return response()->json([
