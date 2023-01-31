@@ -11,7 +11,7 @@ import Chart from '@/Components/Chart.vue';
 const form = reactive({
   startDate: null,
   endDate: null,
-  type: 'perDay'
+  type: 'perDay',
 })
 
 const data = reactive({
@@ -34,8 +34,10 @@ const analysisByToFrom = async () => {
         type: form.type
       }
     }).then((res) => {
-      console.log(res.data.data);
+      console.log(res.data);
       data.data = res.data.data
+      data.labels = res.data.labels
+      data.totals = res.data.totals
     })
 
   } catch (e) {
@@ -106,7 +108,9 @@ const analysisByToFrom = async () => {
                   </tbody>
                 </table>
               </div>
-              <Chart></Chart>
+              <div v-show="data">
+                <Chart :data="data"></Chart>
+              </div>
             </section>
           </div>
         </div>

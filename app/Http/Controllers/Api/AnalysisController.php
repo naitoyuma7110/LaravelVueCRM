@@ -31,15 +31,22 @@ class AnalysisController extends Controller
     }
 
     // DB:modelの基幹クラス queryビルダの各メソッドを使用可能となる
-    // 日毎の合計売上金額レコード
+    // 日毎の合計売上金額レコード(date, total)
     $data = DB::table($subQuery)
       ->groupBy('date')
       ->selectRaw('date, sum(totalPerPurchase) as total')
       ->orderBy('date')
       ->get();
 
+    // pluck：指定したキーに対応する値を取得
+    $labels = $data->pluck('date');
+    $totals = $data->pluck('total');
+
     return response()->json([
-      'data' => $data
+      'data' => $data,
+      'type' => $request->type,
+      'labels' => $labels,
+      'totals' => $totals,
     ], Response::HTTP_OK);
   }
 }
