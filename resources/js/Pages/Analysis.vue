@@ -15,7 +15,9 @@ const form = reactive({
 })
 
 const data = reactive({
-
+  data: null,
+  labels: null,
+  totals: null
 })
 
 onMounted(() => {
@@ -108,7 +110,7 @@ const analysisByToFrom = async () => {
                   </tbody>
                 </table>
               </div>
-              <div v-show="data">
+              <div v-show="data.data">
                 <Chart :data="data"></Chart>
               </div>
             </section>

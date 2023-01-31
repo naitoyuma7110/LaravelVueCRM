@@ -13,11 +13,14 @@ const props = defineProps({
 })
 
 const labels = computed(() => {
-  props.data.labels.map((label) => {
-    return dayjs(label).format('YYYY-MM-DD')
-  })
-})
-
+  if (props.data.labels) {
+    return props.data.labels.map(label =>
+      dayjs(label).format('YYYY-MM-DD')
+    );
+  }
+  return null
+}
+)
 const totals = computed(() => props.data.totals)
 
 const bardata = reactive({
