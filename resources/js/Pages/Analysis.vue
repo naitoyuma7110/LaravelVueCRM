@@ -6,7 +6,7 @@ import axios from 'axios';
 import { onMounted, reactive } from 'vue';
 import dayjs from 'dayjs';
 import Chart from '@/Components/Chart.vue';
-
+import ResultTable from '@/Components/ResultTable.vue';
 
 const form = reactive({
   startDate: null,
@@ -17,14 +17,14 @@ const form = reactive({
 const data = reactive({
   data: null,
   labels: null,
-  totals: null
+  totals: null,
+  type: null
 })
 
 onMounted(() => {
   form.startDate = getToday()
   form.endDate = getToday()
 })
-
 
 const analysisByToFrom = async () => {
   try {
@@ -40,6 +40,8 @@ const analysisByToFrom = async () => {
       data.data = res.data.data
       data.labels = res.data.labels
       data.totals = res.data.totals
+      data.type = res.data.type
+
     })
 
   } catch (e) {
@@ -58,6 +60,7 @@ const analysisByToFrom = async () => {
     </template>
 
     <div class="py-12">
+
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 text-gray-900">
@@ -65,10 +68,55 @@ const analysisByToFrom = async () => {
               <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">データ分析</h1>
             </div>
             <section>
+              <h2 class="text-xl font-bold">分析設定</h2>
+              <div class="my-8">
+                <label for="startDate" class="block text-lg  text-gray-700">
+                  分析方法
+                </label>
+                <ul
+                  class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                  <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                    <div class="flex items-center pl-3">
+                      <input v-model="form.type" checked id="type-perDay" type="radio" value="perDay" name="list-radio"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                      <label for="type-perDay"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">日別
+                      </label>
+                    </div>
+                  </li>
+                  <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                    <div class="flex items-center pl-3">
+                      <input v-model="form.type" id="type-perMonth" type="radio" value="perMonth" name="list-radio"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                      <label for="type-perMonth"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">月別</label>
+                    </div>
+                  </li>
+                  <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                    <div class="flex items-center pl-3">
+                      <input v-model="form.type" id="type-perYear" type="radio" value="perYear" name="list-radio"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                      <label for="type-perYear"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">年別
+                      </label>
+                    </div>
+                  </li>
+                  <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                    <div class="flex items-center pl-3">
+                      <input v-model="form.type" id="type-decil" type="radio" value="decil" name="list-radio"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                      <label for="type-decil"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">デシル分析
+                      </label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
               <form @submit.prevent="">
                 <div class="max-w-screen-md grid sm:grid-cols-3 gap-4 mx-auto">
                   <div class="">
-                    <label for="startDate" class="block text-sm font-medium text-gray-700">
+                    <label for="startDate" class="block text-lg font-medium text-gray-700">
                       From:
                     </label>
                     <input type="date" name="startDate" autocomplete="given-name"
@@ -76,7 +124,7 @@ const analysisByToFrom = async () => {
                       v-model="form.startDate">
                   </div>
                   <div class="">
-                    <label for="startDate" class="block text-sm font-medium text-gray-700">
+                    <label for="startDate" class="block text-lg font-medium text-gray-700">
                       To:
                     </label>
                     <input type="date" name="startDate" autocomplete="given-name"
@@ -89,29 +137,11 @@ const analysisByToFrom = async () => {
                   </div>
                 </div>
               </form>
-              <div class="lg:w-2/3 w-full mx-auto overflow-auto">
-                <table class="table-auto w-full text-center whitespace-no-wrap mt-10">
-                  <thead>
-                    <tr>
-                      <th
-                        class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
-                        日付</th>
-                      <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                        合計売上金額</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="d in data.data">
-                      <td class="px-4 py-3 text-center border-b">
-                        {{ dayjs(d.date).format('YYYY-MM-DD') }}
-                      </td>
-                      <td class="px-4 py-3 text-center border-b">{{ d.total }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div v-show="data.data">
-                <Chart :data="data"></Chart>
+              <div v-show="data.data" class="lg:w-2/3 w-full mx-auto overflow-auto">
+                <div class="lg:w-2/3 w-full mx-auto overflow-auto my-10">
+                  <Chart :data="data"></Chart>
+                  <ResultTable :data="data"></ResultTable>
+                </div>
               </div>
             </section>
           </div>

@@ -1,28 +1,25 @@
 {
-    "root": true,
-    "env": {
-        "browser": true,
-        "node": true,
-        "es2021": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:vue/vue3-recommended",
-        "plugin:vue/essential",
-        "prettier"
-    ],
-    "overrides": [],
-    "parserOptions": {
-        "parser": "@typescript-eslint/parser",
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": ["vue", "@typescript-eslint"],
-    "rules": {
-        "vue/require-default-prop": 0,
-        "vue/no-multiple-template-root":0,
-        "vue/multi-word-component-names":0
-    }
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:vue/vue3-essential",
+    "@vue/eslint-config-airbnb-with-typescript",
+    "@vue/eslint-config-prettier"
+  ],
+  "overrides": [],
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["vue", "@typescript-eslint"],
+  "rules": {
+    "vue/require-default-prop": 0,
+    "vue/no-multiple-template-root": 0,
+    "vue/multi-word-component-names": 0
+  }
 }
-

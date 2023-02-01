@@ -13,12 +13,13 @@ const props = defineProps({
 })
 
 const labels = computed(() => {
-  if (props.data.labels) {
+  if (props.data.type !== 'decil' && props.data.labels) {
     return props.data.labels.map(label =>
       dayjs(label).format('YYYY-MM-DD')
     );
+  } else {
+    return props.data.labels
   }
-  return null
 }
 )
 const totals = computed(() => props.data.totals)
@@ -27,7 +28,7 @@ const bardata = reactive({
   labels: labels,
   datasets: [
     {
-      label: '売上',
+      label: props.data.type == 'decil' ? '売上合計' : '売上',
       data: totals,
       backgroundColor: 'rgb(75, 192, 192)',
       tension: 0.1,

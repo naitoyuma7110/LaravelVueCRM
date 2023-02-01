@@ -14,10 +14,6 @@ class AnalysisController extends Controller
 {
   public function index(Request $request)
   {
-
-    // $startDate = $request->startDate;
-    // $endDate = $request->endDate;
-
     // start-end間のPurchaseレコード
     $subQuery = Order::betweenDate($request->startDate, $request->endDate);
 
@@ -25,6 +21,18 @@ class AnalysisController extends Controller
     if ($request->type === 'perDay') {
       // list():配列の各要素を変数として定義する
       list($data, $labels, $totals) = AnalysisService::perDay($subQuery);
+    }
+
+    if ($request->type === 'perMonth') {
+      list($data, $labels, $totals) = AnalysisService::perMonth($subQuery);
+    }
+
+    if ($request->type === 'perYear') {
+      list($data, $labels, $totals) = AnalysisService::perYear($subQuery);
+    }
+
+    if ($request->type === 'decil') {
+      list($data, $labels, $totals) = AnalysisService::decil($subQuery);
     }
 
     return response()->json([
