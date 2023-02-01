@@ -16,7 +16,7 @@ class AnalysisController extends Controller
   {
 
     $startDate = '2021-01-01';
-    $endDate = '2022-02-01';
+    $endDate = '2024-02-01';
 
     // Order: Customers-Purchases-(Item_Purchase)-Items
 
@@ -59,7 +59,58 @@ class AnalysisController extends Controller
           SUM(totalPerPurchase) as monetary
         ');
 
-    dd($subQuery->get());
+    // dd($subQuery->get());
+
+    $subQuery = DB::table($subQuery)
+      ->selectRaw('
+      customer_id,
+      customer_name,
+      recentDate,
+      recency,
+      frequency,
+      monetary,
+      CASE
+        WHEN recency < 14 then 5
+        WHEN recency < 28 then 4
+        WHEN recency < 60 then 3
+        WHEN recency < 90 then 2
+        ELSE 1 END as r,
+      CASE
+        WHEN 7 <= frequency THEN 5
+        WHEN 5 <= frequency THEN 4
+        WHEN 3 <= frequency THEN 3
+        WHEN 2 <= frequency THEN 2
+        ELSE 1 END as f,
+      CASE
+        WHEN 300000 <= monetary THEN 5
+        WHEN 200000 <= monetary THEN 4
+        WHEN 100000 <= monetary THEN 5
+        WHEN 30000 <= monetary THEN 2
+        ELSE 1 END as m
+      ');
+
+    $total = DB::table($subQuery)->count();
+
+    $rCount = DB::table($subQuery)
+      ->groupBy('r')
+      ->selectRaw('r, count(r)')
+      ->orderBy('r', 'desc')
+      ->get();
+
+    $fCount = DB::table($subQuery)
+      ->groupBy('f')
+      ->selectRaw('f, count(f)')
+      ->orderBy('f', 'desc')
+      ->get();
+
+    $mCount = DB::table($subQuery)
+      ->groupBy('m')
+      ->selectRaw('m, count(m)')
+      ->orderBy('m', 'desc')
+      ->get();
+
+    dd($total, $fCount, $rCount, $mCount);
+
 
 
 
