@@ -50,7 +50,7 @@ const props = defineProps({
       </thead>
       <tbody>
         <tr v-for="d in props.data.data">
-          <td class="px-4 py-3 text-center border-b"> {{ d.delci }}</td>
+          <td class="px-4 py-3 text-center border-b"> {{ d.decil }}</td>
           <td class="px-4 py-3 text-center border-b">{{ d.totalPerGroup }}円</td>
           <td class="px-4 py-3 text-center border-b">{{ d.average }}円</td>
           <td class="px-4 py-3 text-center border-b">{{ d.totalRatio }}%</td>

@@ -16,6 +16,13 @@ class AnalysisController extends Controller
   {
     // start-end間のPurchaseレコード
     $subQuery = Order::betweenDate($request->startDate, $request->endDate);
+    $query = DB::table($subQuery)
+      ->groupBy('id')
+      ->select('id');
+
+    $count = DB::table($query)->count();
+
+    // dd($query->get());
 
 
     if ($request->type === 'perDay') {
@@ -37,6 +44,7 @@ class AnalysisController extends Controller
 
     return response()->json([
       'data' => $data,
+      'count' => $count,
       'type' => $request->type,
       'labels' => $labels,
       'totals' => $totals,

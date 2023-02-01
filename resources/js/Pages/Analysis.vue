@@ -18,7 +18,8 @@ const data = reactive({
   data: null,
   labels: null,
   totals: null,
-  type: null
+  type: null,
+  count: null
 })
 
 onMounted(() => {
@@ -41,7 +42,7 @@ const analysisByToFrom = async () => {
       data.labels = res.data.labels
       data.totals = res.data.totals
       data.type = res.data.type
-
+      data.count = res.data.count
     })
 
   } catch (e) {
@@ -71,7 +72,7 @@ const analysisByToFrom = async () => {
               <h2 class="text-xl font-bold">分析設定</h2>
               <div class="my-8">
                 <label for="startDate" class="block text-lg  text-gray-700">
-                  分析方法
+                  方法
                 </label>
                 <ul
                   class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
@@ -139,6 +140,9 @@ const analysisByToFrom = async () => {
               </form>
               <div v-show="data.data" class="lg:w-2/3 w-full mx-auto overflow-auto">
                 <div class="lg:w-2/3 w-full mx-auto overflow-auto my-10">
+                  <label for="startDate" class="block text-sm  text-gray-500 text-right">
+                    分析データ:{{ data.count }}件
+                  </label>
                   <Chart :data="data"></Chart>
                   <ResultTable :data="data"></ResultTable>
                 </div>

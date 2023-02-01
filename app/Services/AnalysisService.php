@@ -91,7 +91,9 @@ class AnalysisService
   }
   public static function decil($subQuery)
   {
-    $query = DB::table($subQuery)->groupBy('id')
+    // 注文毎に小計を合計する
+    $query = DB::table($subQuery)
+      ->groupBy('id')
       ->selectRaw('
       id,
       customer_id,
@@ -130,7 +132,7 @@ class AnalysisService
     customer_id,
     customer_name,
     total,
-    NTILE(10) over (ORDER BY total DESC) as delci
+    NTILE(10) over (ORDER BY total DESC) as decil
   ');
 
     // 10段階のグループ毎に購入金額の合計、平均
@@ -141,9 +143,9 @@ class AnalysisService
     // DBモデルのquery内で変数$totalを使用
     DB::statement("set @total = $total;");
     $data = DB::table($query)
-      ->groupBy('delci')
+      ->groupBy('decil')
       ->selectRaw('
-      delci,
+      decil,
       count(*) as count,
       SUM(total) as totalPerGroup,
       ROUND(AVG(total)) as average,
@@ -151,10 +153,14 @@ class AnalysisService
       ')
       ->get();
 
-    $labels = $data->pluck('delci');
+    $labels = $data->pluck('decil');
     $totals = $data->pluck('totalPerGroup');
 
 
     return [$data, $labels, $totals];
+  }
+
+  public static function rfm($subQuery)
+  {
   }
 }
