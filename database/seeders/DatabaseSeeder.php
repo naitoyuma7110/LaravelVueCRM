@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
       ItemSeeder::class
     ]);
     // DatabaseSeederに直書き
-    \App\Models\Customer::factory(300)->create();
+    \App\Models\Customer::factory(500)->create();
 
     //中間テーブルを介する多対多のテーブルにレコードを挿入する場合
     $items = Item::all();

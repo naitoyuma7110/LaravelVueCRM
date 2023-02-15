@@ -12,7 +12,12 @@ const form = reactive({
   startDate: null,
   endDate: null,
   type: 'perDay',
+  rfmParams: [
+    14, 28, 60, 90, 5, 4, 3, 2, 70000, 50000, 20000, 10000
+  ]
 })
+
+
 
 const data = reactive({
   data: null,
@@ -52,7 +57,6 @@ const analysisByToFrom = async () => {
 </script>
 
 <template>
-
   <Head title="Dashboard" />
 
   <AuthenticatedLayout>
@@ -111,6 +115,15 @@ const analysisByToFrom = async () => {
                       </label>
                     </div>
                   </li>
+                  <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                    <div class="flex items-center pl-3">
+                      <input v-model="form.type" id="type-rfm" type="radio" value="rfm" name="list-radio"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                      <label for="type-rfm"
+                        class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">RFM分析
+                      </label>
+                    </div>
+                  </li>
                 </ul>
               </div>
 
@@ -147,10 +160,11 @@ const analysisByToFrom = async () => {
                   <ResultTable :data="data"></ResultTable>
                 </div>
               </div>
+              <div v-if="form.type === 'rfm'">RFM表示</div>
             </section>
           </div>
         </div>
       </div>
     </div>
-  </AuthenticatedLayout>
+</AuthenticatedLayout>
 </template>

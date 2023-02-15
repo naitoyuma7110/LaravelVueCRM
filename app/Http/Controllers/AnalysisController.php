@@ -15,8 +15,8 @@ class AnalysisController extends Controller
   public function index()
   {
 
-    $startDate = '2021-01-01';
-    $endDate = '2024-02-01';
+    $startDate = '2016-01-01';
+    $endDate = '2023-02-01';
 
     // Order: Customers-Purchases-(Item_Purchase)-Items
 
@@ -59,7 +59,10 @@ class AnalysisController extends Controller
           SUM(totalPerPurchase) as monetary
         ');
 
-    // dd($subQuery->get());
+    // RFMランクの基準値を配列で設定
+    $rfmParams = [
+      14, 28, 60, 90, 5, 4, 3, 2, 70000, 50000, 20000, 10000
+    ];
 
     $subQuery = DB::table($subQuery)
       ->selectRaw('
@@ -70,24 +73,24 @@ class AnalysisController extends Controller
       frequency,
       monetary,
       CASE
-        WHEN recency < 14 then 5
-        WHEN recency < 28 then 4
-        WHEN recency < 60 then 3
-        WHEN recency < 90 then 2
+        WHEN recency < ? then 5
+        WHEN recency < ? then 4
+        WHEN recency < ? then 3
+        WHEN recency < ? then 2
         ELSE 1 END as r,
       CASE
-        WHEN 7 <= frequency THEN 5
-        WHEN 5 <= frequency THEN 4
-        WHEN 3 <= frequency THEN 3
-        WHEN 2 <= frequency THEN 2
+        WHEN ? <= frequency THEN 5
+        WHEN ? <= frequency THEN 4
+        WHEN ? <= frequency THEN 3
+        WHEN ? <= frequency THEN 2
         ELSE 1 END as f,
       CASE
-        WHEN 300000 <= monetary THEN 5
-        WHEN 200000 <= monetary THEN 4
-        WHEN 100000 <= monetary THEN 5
-        WHEN 30000 <= monetary THEN 2
+        WHEN ? <= monetary THEN 5
+        WHEN ? <= monetary THEN 4
+        WHEN ? <= monetary THEN 3
+        WHEN ? <= monetary THEN 2
         ELSE 1 END as m
-      ');
+      ', $rfmParams);
 
     $total = DB::table($subQuery)->count();
 
@@ -95,24 +98,52 @@ class AnalysisController extends Controller
       ->groupBy('r')
       ->selectRaw('r, count(r)')
       ->orderBy('r', 'desc')
+      // ->pluck('count(r)');
       ->get();
 
     $fCount = DB::table($subQuery)
       ->groupBy('f')
       ->selectRaw('f, count(f)')
       ->orderBy('f', 'desc')
+      // ->pluck('count(f)');
       ->get();
 
     $mCount = DB::table($subQuery)
       ->groupBy('m')
       ->selectRaw('m, count(m)')
       ->orderBy('m', 'desc')
+      // ->pluck('count(m)');
       ->get();
 
-    dd($total, $fCount, $rCount, $mCount);
 
+    // rRank(1～5)毎にグループにまとめる
+    // またグループ内にfのランク(1～5)が何件含まれるかそれぞれカウント
+    $data = DB::table($subQuery)
+      ->groupBy('r')
+      ->selectRaw('
+        concat("r_", r) as rRank,
+        count(CASE WHEN f = 5 THEN 1 END) as f_5,
+        count(CASE WHEN f = 4 THEN 1 END) as f_4,
+        count(CASE WHEN f = 3 THEN 1 END) as f_3,
+        count(CASE WHEN f = 2 THEN 1 END) as f_2,
+        count(CASE WHEN f = 1 THEN 1 END) as f_1
+        ')
+      ->orderBy('rRank', 'desc')
+      ->get();
 
+    // $rank = 5;
+    // $eachCount = [];
+    // for ($i = 0; $i < 5; $i++) {
+    //   array_push($eachCount, [
+    //     'rank' => $rank,
+    //     'r' => $rCount[$i],
+    //     'f' => $fCount[$i],
+    //     'm' => $mCount[$i]
+    //   ]);
+    //   $rank--;
+    // }
 
+    // dd($subQuery->get(), $rCount, $fCount, $mCount);
 
     return Inertia::render('Analysis');
   }
