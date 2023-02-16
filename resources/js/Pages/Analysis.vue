@@ -151,6 +151,7 @@ const analysisByToFrom = async () => {
                   </div>
                 </div>
               </form>
+              <div v-if="form.type === 'rfm'">RFM表示</div>
               <div v-show="data.data" class="lg:w-2/3 w-full mx-auto overflow-auto">
                 <div class="lg:w-2/3 w-full mx-auto overflow-auto my-10">
                   <label for="startDate" class="block text-sm  text-gray-500 text-right">
@@ -160,7 +161,6 @@ const analysisByToFrom = async () => {
                   <ResultTable :data="data"></ResultTable>
                 </div>
               </div>
-              <div v-if="form.type === 'rfm'">RFM表示</div>
             </section>
           </div>
         </div>
