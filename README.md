@@ -5,17 +5,18 @@ Udemy動画：https://www.udemy.com/course/laravel-vue3-crm/
 ## 概要
 とても分かりやすくて勉強になりました。(^^)/
 
-■フロントエンド Vue.js3
-CompositionAPI + script setup
-defineProps, defineEmits, ref, reactive, computed, onMounted
-v-show, v-if, v-on, v-bind, v-for,
+- フロントエンド Vue.js3  
+CompositionAPI + script setup  
+defineProps, defineEmits, ref, reactive, computed, onMounted  
+v-show, v-if, v-on, v-bind, v-for  
 
-■ バックエンド Laravel
-LaravelBreeze,Inertia, Ziggy, Link,Sanctum (API)
-クエリスコープ(ローカル、グローバル)、リレーション(1対多、多対多, attach, sync)、ページネーション、トランザクション、Inertiaミドルウェア、フラッシュメッセージ、バリデーション、カスタムリクエスト、Seeder、Faker、Factory、Carbon
+- バックエンド Laravel  
+LaravelBreeze,Inertia,Ziggy,Link,Sanctum (API)  
+クエリスコープ(ローカル、グローバル)、リレーション(1対多、多対多, attach, sync)  
+ページネーション、トランザクション、Inertiaミドルウェア、フラッシュメッセージバリデーション、カスタムリクエスト、Seeder、Faker、Factory、Carbon
 
-■データ分析
+- データ分析  
 期間指定、日別分析、月別分析、デシル分析、RFM分析 など
 
-■その他
+- その他  
 yubinbango-core2, micromodal.js, axios, vue-charts-3
