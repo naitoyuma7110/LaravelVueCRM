@@ -1,6 +1,7 @@
-# Udemy動画：【Laravel】【Vue.js3】で【CRM(顧客管理システム)】をつくってみよう【Breeze(Inertia)】を実践
+# Laravel × Vue.js3でCRM(顧客管理システム)作成
 
-Udemy動画：https://www.udemy.com/course/laravel-vue3-crm/
+Udemy動画：【Laravel】【Vue.js3】で【CRM(顧客管理システム)】をつくってみよう【Breeze(Inertia)】を実践
+https://www.udemy.com/course/laravel-vue3-crm/
 
 ## 概要
 とても分かりやすくて勉強になりました。(^^)/
